@@ -13,7 +13,9 @@
             <v-text-field v-model="inputField" label="Write something here"></v-text-field>
             <v-btn v-on:click="commitValue">Commit to store</v-btn>
           </v-col>
-          <v-col cols="6"><SomeComponent /></v-col>
+          <v-col cols="6">
+            <SomeComponent />
+          </v-col>
         </v-row>
       </v-container>
     </v-content>
