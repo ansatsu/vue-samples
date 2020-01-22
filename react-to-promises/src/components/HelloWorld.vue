@@ -1,21 +1,22 @@
 <template>
-  <v-container>
-    <v-layout text-center wrap>
-      <v-container>
-        <v-row>
-          <v-col>
-            <p>tja</p>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-layout>
-  </v-container>
+  <div>
+    <p>hello: {{ resolvedValue }}</p>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 
 @Component
-export default class HelloWorld extends Vue {}
+export default class HelloWorld extends Vue {
+  @Prop()
+  promiseProp!: Promise<Date>;
+
+  resolvedValue: Date = new Date(1980, 1, 1);
+
+  get stuffle() {
+    return this.promiseProp.then(result => (this.resolvedValue = result));
+  }
+}
 </script>

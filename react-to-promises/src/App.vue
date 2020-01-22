@@ -7,7 +7,17 @@
     </v-app-bar>
 
     <v-content>
-      <HelloWorld />
+      <v-container>
+        <v-row>
+          <v-col cols="6">
+            <p>tja left</p>
+            <v-btn v-on:click="makePromise">Make a promise!</v-btn>
+          </v-col>
+          <v-col cols="6">
+            <HelloWorld :promiseProp="thePromise" />
+          </v-col>
+        </v-row>
+      </v-container>
     </v-content>
   </v-app>
 </template>
@@ -17,12 +27,16 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import HelloWorld from "./components/HelloWorld.vue";
 
-@Component
+@Component({
+  components: { HelloWorld }
+})
 export default class App extends Vue {
+  thePromise: Promise<Date> = new Promise((res, rej) => {});
+
   makePromise() {
-    return new Promise((resolve, reject) => {
+    this.thePromise = new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve();
+        resolve(new Date());
       }, 2000);
     });
   }
