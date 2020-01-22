@@ -1,61 +1,38 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <h1>Vuex demo</h1>
       </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <v-container>
+        <v-row>
+          <v-col cols="6">
+            <v-text-field v-model="inputField" label="Write something here"></v-text-field>
+            <v-btn v-on:click="commitValue">Commit to store</v-btn>
+          </v-col>
+          <v-col cols="6"><SomeComponent /></v-col>
+        </v-row>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import SomeComponent from "@/components/SomeComponent.vue";
 
-export default Vue.extend({
-  name: 'App',
+@Component({
+  components: { SomeComponent }
+})
+export default class App extends Vue {
+  inputField: string = "";
 
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-});
+  commitValue() {
+    this.$store.commit("updateValue", this.inputField);
+  }
+}
 </script>
